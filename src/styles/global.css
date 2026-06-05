@@ -193,7 +193,7 @@ hr {
   border: 0;
   height: 1px;
   background: var(--color-ui);
-  margin: 4em 0;
+  margin: 2em 0;
 }
 
 main hr:last-child {
@@ -464,6 +464,9 @@ nav .nav-links a:hover {
 .related-posts li {
   padding: 0.15rem 0;
 }
+.related-posts li:last-child {
+  padding-bottom: 0;
+}
 
 .related-posts a {
   text-decoration: none;
@@ -607,7 +610,12 @@ article a[href^="http://"]::after {
 
 .recent-desc {
   margin: 0.35em 0 0;
+  padding: 0;
+  max-width: none;
   line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .archive-section {
