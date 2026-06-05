@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { toPersianYearMonth } from "../utils/date";
+
+const allPosts = await getCollection("posts", ({ data }) => !data.draft);
+allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout title="نوشته‌ها — حامد" section={{ label: "نوشته‌ها", url: "/writing" }}>
+  <h1>نوشته‌ها</h1>
+
+  <ul class="list-plain tabular-nums writing-list">
+    {
+      allPosts.map((post) => {
+        return (
+          <li>
+            <a href={"/" + post.id} class="plain">
+              <span class="align-baseline flex">
+                <span class="muted flex-shrink small nowrap">{toPersianYearMonth(post.data.date)}</span>
+                &nbsp;<u>{post.data.title}</u>
+              </span>
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</BaseLayout>

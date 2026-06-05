@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("posts", ({ data }) => !data.draft);
+const topics = [...new Set(allPosts.flatMap((p) => p.data.tags ?? []))].sort();
+---
+
+<BaseLayout title="موضوعات — حامد" section={{ label: "موضوعات", url: "/topics" }}>
+  <h1>موضوعات</h1>
+
+  <div class="topics-list">
+    {
+      topics.map((t, i) => (
+        <>
+          <a href={"/topics/" + t}>{t}</a>
+          {i < topics.length - 1 && <span class="muted">, </span>}
+        </>
+      ))
+    }
+  </div>
+</BaseLayout>

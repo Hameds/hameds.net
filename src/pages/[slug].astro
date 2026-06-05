@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+import { toPersianDate } from "../utils/date";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts", ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const ogTitle = post.data.ogTitle ?? post.data.title;
+const ogDescription = post.data.ogDescription ?? post.data.description ?? "";
+const ogImage = post.data.ogImage ?? post.data.heroImage;
+const pageUrl = "https://hameds.net/" + post.id;
+---
+
+<BaseLayout
+  title={post.data.title + " — حامد"}
+  description={post.data.description}
+  socialTitle={ogTitle}
+  socialDescription={ogDescription}
+  socialImage={ogImage}
+  socialUrl={pageUrl}
+  section={{ label: "نوشته‌ها", url: "/writing" }}
+>
+  <article>
+    <h1>{post.data.title}</h1>
+    <div class="metadata muted small">
+      <time datetime={post.data.date.toISOString()}>
+        {toPersianDate(post.data.date)}
+      </time>
+      {
+        post.data.tags && post.data.tags.length > 0 && (
+          <>
+            {" · "}
+            {post.data.tags.map((t, i) => (
+              <>{i > 0 && ", "}<a href={"/topics/" + t}>{t}</a></>
+            ))}
+          </>
+        )
+      }
+    </div>
+    <Content />
+  </article>
+</BaseLayout>

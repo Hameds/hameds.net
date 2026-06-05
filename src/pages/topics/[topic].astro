@@ -1,0 +1,42 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { toPersianYearMonth } from "../../utils/date";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts", ({ data }) => !data.draft);
+  const topics = [...new Set(posts.flatMap((p) => p.data.tags ?? []))];
+  return topics.map((topic) => ({
+    params: { topic },
+    props: { topic },
+  }));
+}
+
+const { topic } = Astro.props;
+const allPosts = await getCollection(
+  "posts",
+  ({ data }) => !data.draft && (data.tags ?? []).includes(topic),
+);
+allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout title={topic + " — حامد"} section={{ label: topic, url: "/topics/" + topic }}>
+  <h1>{topic}</h1>
+
+  <ul class="list-plain tabular-nums writing-list">
+    {
+      allPosts.map((post) => {
+        return (
+          <li>
+            <a href={"/" + post.id} class="plain">
+              <span class="align-baseline flex">
+                <span class="muted flex-shrink small nowrap">{toPersianYearMonth(post.data.date)}</span>
+                &nbsp;<u>{post.data.title}</u>
+              </span>
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</BaseLayout>

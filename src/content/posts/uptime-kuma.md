@@ -1,0 +1,9 @@
+---
+title: "صفحه وضعیت"
+description: "وضعیت uptime سرویس‌های مختلف رو به سادگی مانیتور کنید"
+date: 2023-03-02
+tags: [برنامه‌های کاربردی]
+heroImage: "/images/2023/03/uptime-kuma.jpeg"
+---
+
+<p>مانیتور کردن وضعیت سرویس‌ها و اتصال‌ها توی دنیای امروز کار واجبیه. صفحه وضعیت (Status Page) کمک می‌کنه تا بتونید وضعیت بالا بودن سرویس‌های مختلف رو ببینید و گزارش کنید.</p><p>پروژه اپن سورس Uptime Kuma کمک می‌کنه یک صفحه وضعیت برای خودتون به شکل self-hosted داشته باشید.</p><figure class="kg-card kg-bookmark-card"><a class="kg-bookmark-container" href="https://github.com/louislam/uptime-kuma"><div class="kg-bookmark-content"><div class="kg-bookmark-title">GitHub - louislam/uptime-kuma: A fancy self-hosted monitoring tool</div><div class="kg-bookmark-description">A fancy self-hosted monitoring tool. Contribute to louislam/uptime-kuma development by creating an account on GitHub.</div><div class="kg-bookmark-metadata"><img class="kg-bookmark-icon" src="https://github.com/fluidicon.png" alt=""><span class="kg-bookmark-author">GitHub</span><span class="kg-bookmark-publisher">louislam</span></div></div><div class="kg-bookmark-thumbnail"><img src="https://repository-images.githubusercontent.com/382496361/f21b61f5-693a-4925-9f1f-fea237ade223" alt=""></div></a></figure><p>ویژگی‌های مهمش این‌هاست:</p><ul><li>مانیتور کردن uptime برای HTTP(s) و TCP و Ping و DNS Record و Steam Game Server و Docker Container و امثالهم.</li><li>قابلیت ارسال اطلاع‌رسانی (Notification) با استفاده از تلگرام، Discord و Slack و ایمیل و بیش از ۹۰ سرویس اطلاع‌رسانی دیگه.</li><li>چند زبانه با پشتیبانی از فارسی</li><li>امکان پشتیبانی از احراز هویت دو مرحله‌ای</li><li>نمایش اطلاعات گواهی‌ها و اطلاع‌رسانی زمان انقضا</li><li>راه‌اندازی ساده با داکر یا بدون داکر :)</li></ul><p>روی این پروژه می‌تونید صفحه وضعیت‌های مختلف عمومی ایجاد کنید و حوادث (Incident) رو هم گزارش کنید. سریعه و البته رایگان و اپن‌سورس :)</p>

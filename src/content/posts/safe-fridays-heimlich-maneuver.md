@@ -1,0 +1,9 @@
+---
+title: "جمعه‌های ایمن: تمرین مانور هایملیش"
+description: "یادگیری تکنیک کمک‌های اولیه برای نجات فرد از خفگی ناشی از جسم خارجی در مجرای تنفسی"
+date: 2023-04-14
+tags: [ایمنی]
+heroImage: "/images/2023/04/heimlich-m.jpg"
+---
+
+<p>همونطور که می‌دونید جمعه‌ها در نوشته‌هایی زیر عنوان کلی «جمعه‌های ایمن» از موارد مرتبط با ایمنی در زندگی روزمره و زندگی دیجیتال می‌نویسم. چرا جمعه؟ چون جمعه‌ها در ایران تعطیله و فرصتی است برای رسیدگی به کارهای این چنینی.</p><p>این هفته می‌خوام درباره یک تمرین نجات بخش صحبت کنم. Heimlich Maneuver که مانور هایملیش/هایملیخ/هایملیک هم گفته می‌شه و برای مواقعی است که یک نفر در معرض خفگی ناشی از جسم خارجی در گلو مثلاً به خاطر پریدن غذا و امثالهم قرار گرفته.</p><p>این یکی از فوریت‌‌های پزشکی است که خیلی خوبه همه در خونه تمرین کنند. آموزش‌های مختلفی از این تکنیک کشش شکمی روی اینترنت هست. خود روش هم ساده است اما نیاز به تمرین داره.</p><p><strong>نکته مهم</strong>: تفاوت‌هایی بین بزرگسالان و کودکان و نوزادان و افراد چاق/خانم‌های حامله در اجرا وجود داره که اون‌ها رو می‌تونید جستجو و تمرین کنید. </p><figure class="kg-card kg-image-card"><img src="/images/2023/04/hmp.jpg" class="kg-image" alt loading="lazy" width="571" height="800"></figure><p><a href="https://www.youtube.com/watch?v=7CgtIgSyAiU">اینجا</a> به انگلیسی خیلی ساده توضیح داده شده ولی نمونه‌های <a href="https://www.youtube.com/watch?v=wtfN1yN6zbo">فارسی</a> هم هست.</p><figure class="kg-card kg-embed-card"><iframe width="200" height="113" src="https://www.youtube.com/embed/7CgtIgSyAiU?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="How to Give the Heimlich Maneuver | First Aid Training"></iframe></figure><p>خواهش می‌کنم امروز این رو توی خونه تمرین کنید. شاید روزی بتونید به کمکش جان یک نفر رو نجات بدین.</p><p><strong>نکته مهم</strong>: لازمه پیش از تمرین، به اندازه کافی تحقیق کنید و همچنین در تمرین احتیاط لازم رو داشته باشید.</p>

@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { toPersianDate, toPersianYearMonth } from "../utils/date";
+
+const allPosts = await getCollection("posts", ({ data }) => !data.draft);
+allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const latest = allPosts[0];
+const topics = [...new Set(allPosts.flatMap((p) => p.data.tags ?? []))].sort();
+---
+
+<BaseLayout title="حامد">
+  <p><a href={"/" + latest.id} class="muted">جدیدترین</a></p>
+
+  <div>
+    <a href={"/" + latest.id} class="plain">
+      <h2>{latest.data.title}</h2>
+      <div class="metadata muted small">
+        <time datetime={latest.data.date.toISOString()}>
+          {toPersianDate(latest.data.date)}
+        </time>
+      </div>
+      {
+        latest.data.description && (
+          <div class="small muted">{latest.data.description} ادامه مطلب ←</div>
+        )
+      }
+    </a>
+  </div>
+
+  <hr />
+
+  <p><a href="/topics" class="muted">موضوعات</a></p>
+
+  <div class="topics-list">
+    {
+      topics.map((t, i) => (
+        <>
+          <a href={"/topics/" + t}>{t}</a>
+          {i < topics.length - 1 && <span class="muted">, </span>}
+        </>
+      ))
+    }
+  </div>
+
+  <hr />
+
+  <p class="muted"><a href="/writing" class="muted">نوشته‌ها</a></p>
+
+  <ul class="list-plain tabular-nums writing-list">
+    {
+      allPosts.map((post) => {
+        return (
+          <li>
+            <a href={"/" + post.id} class="plain">
+              <span class="align-baseline flex">
+                <span class="muted flex-shrink small nowrap">{toPersianYearMonth(post.data.date)}</span>
+                &nbsp;<u>{post.data.title}</u>
+              </span>
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</BaseLayout>
