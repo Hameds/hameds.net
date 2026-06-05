@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection, render } from "astro:content";
-import { toPersianDate } from "../utils/date";
+import { toPersianDate, toPersianDigits } from "../utils/date";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
@@ -18,6 +18,21 @@ const ogTitle = post.data.ogTitle ?? post.data.title;
 const ogDescription = post.data.ogDescription ?? post.data.description ?? "";
 const ogImage = post.data.ogImage ?? post.data.heroImage;
 const pageUrl = "https://hameds.net/" + post.id;
+
+const words = (post.body ?? "").split(/\s+/).filter(Boolean).length;
+const readingTime = Math.max(1, Math.round(words / 150));
+
+const currentTags = post.data.tags ?? [];
+const allPosts = await getCollection("posts", ({ data }) => !data.draft);
+const relatedPosts = allPosts
+  .filter((p) => p.id !== post.id)
+  .map((p) => ({
+    post: p,
+    score: (p.data.tags ?? []).filter((t) => currentTags.includes(t)).length,
+  }))
+  .filter((p) => p.score > 0)
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 3);
 ---
 
 <BaseLayout
@@ -35,10 +50,12 @@ const pageUrl = "https://hameds.net/" + post.id;
       <time datetime={post.data.date.toISOString()}>
         {toPersianDate(post.data.date)}
       </time>
+      <span aria-hidden="true"> · </span>
+      <span>{toPersianDigits(readingTime)} دقیقه مطالعه</span>
       {
         post.data.tags && post.data.tags.length > 0 && (
           <>
-            {" · "}
+            <span aria-hidden="true"> · </span>
             {post.data.tags.map((t, i) => (
               <>{i > 0 && ", "}<a href={"/topics/" + t}>{t}</a></>
             ))}
@@ -47,5 +64,17 @@ const pageUrl = "https://hameds.net/" + post.id;
       }
     </div>
     <Content />
+    {
+      relatedPosts.length > 0 && (
+        <div class="related-posts">
+          <h2 class="small muted">نوشته‌های مرتبط</h2>
+          <ul class="list-plain">
+            {relatedPosts.map(({ post: p }) => (
+              <li><a href={"/" + p.id}>{p.data.title}</a></li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
   </article>
 </BaseLayout>

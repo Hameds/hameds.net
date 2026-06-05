@@ -99,6 +99,17 @@ html {
   font-size: 62.5%;
 }
 
+#progress-bar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-action);
+  width: 0%;
+  z-index: 100;
+  transition: width 0.1s linear;
+}
+
 body {
   color-scheme: light dark;
   -webkit-font-smoothing: antialiased;
@@ -433,6 +444,33 @@ nav .nav-links a:hover {
 /* Metadata (date, reading time) */
 .metadata {
   margin-bottom: 0.5rem;
+}
+
+/* Related posts */
+.related-posts {
+  margin-top: 3em;
+  border-top: 1px solid var(--color-ui);
+  padding-top: 1em;
+}
+
+.related-posts h2 {
+  margin: 0 0 0.5em;
+}
+
+.related-posts ul {
+  margin: 0;
+}
+
+.related-posts li {
+  padding: 0.15rem 0;
+}
+
+.related-posts a {
+  text-decoration: none;
+}
+
+.related-posts a:hover {
+  color: var(--color-action);
 }
 
 /* Footer */
