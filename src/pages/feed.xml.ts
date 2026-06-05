@@ -8,8 +8,8 @@ export async function GET(context) {
   const site = String(context.site).replace(/\/$/, "");
 
   return rss({
-    title: "حامد",
-    description: "وبلاگ شخصی.",
+    title: "وبلاگِ حامد",
+    description: "یادداشت‌ها، ایده‌ها و روایت زیستن",
     site,
     trailingSlash: false,
     items: posts.map((post) => ({
