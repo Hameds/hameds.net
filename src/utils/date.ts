@@ -7,7 +7,7 @@ const persianMonths = [
   "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند",
 ];
 
-function toPersianDigits(n: number): string {
+export function toPersianDigits(n: number): string {
   return String(n).replace(/\d/g, (d) => persianDigits[+d]);
 }
 
