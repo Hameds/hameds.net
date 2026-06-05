@@ -9,9 +9,10 @@ export interface Props {
   socialDescription?: string;
   socialImage?: string;
   socialUrl?: string;
+  ogType?: "website" | "article";
 }
 
-const { title, description, section, socialTitle, socialDescription, socialImage, socialUrl } = Astro.props;
+const { title, description, section, socialTitle, socialDescription, socialImage, socialUrl, ogType = "article" } = Astro.props;
 ---
 
 <!doctype html>
@@ -29,7 +30,7 @@ const { title, description, section, socialTitle, socialDescription, socialImage
     {
       socialTitle && (
         <>
-          <meta property="og:type" content="article" />
+          <meta property="og:type" content={ogType} />
           <meta property="og:title" content={socialTitle} />
           {socialDescription && <meta property="og:description" content={socialDescription} />}
           {socialImage && <meta property="og:image" content={socialImage} />}
