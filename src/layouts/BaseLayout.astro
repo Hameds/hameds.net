@@ -44,6 +44,7 @@ const { title, description, section, socialTitle, socialDescription, socialImage
     <title>{title}</title>
   </head>
   <body>
+    <div id="progress-bar" role="progressbar" aria-hidden="true"></div>
     <script>
       if (
         localStorage.theme === "dark" ||
@@ -133,6 +134,14 @@ const { title, description, section, socialTitle, socialDescription, socialImage
       });
 
       initTheme();
+
+      const bar = document.querySelector("#progress-bar");
+      if (bar) {
+        window.addEventListener("scroll", () => {
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          bar.style.width = (window.scrollY / max) * 100 + "%";
+        });
+      }
     </script>
   </body>
 </html>
