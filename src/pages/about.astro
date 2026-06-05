@@ -1,11 +1,30 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { toPersianDigits } from "../utils/date";
+import { toJalaali } from "jalaali-js";
+
+const allPosts = await getCollection("posts", ({ data }) => !data.draft);
+allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const firstDate = allPosts[allPosts.length - 1].data.date;
+const lastDate = allPosts[0].data.date;
+const firstYear = toPersianDigits(toJalaali(firstDate.getFullYear(), firstDate.getMonth() + 1, firstDate.getDate()).jy);
+const lastYear = toPersianDigits(toJalaali(lastDate.getFullYear(), lastDate.getMonth() + 1, lastDate.getDate()).jy);
 ---
 
 <BaseLayout title="درباره من — حامد" section={{ label: "درباره", url: "/about" }}>
   <article>
     <h1>درباره من</h1>
     <p>حامد هستم: یک <a href="https://github.com/hameds">توسعه‌دهنده نرم‌افزار</a> علاقمند به کتاب. نوشتن رو سال‌ها پیش شروع کردم و اینجا بخشی از آرشیو نوشته‌های فعلی و گذشته است. فعالیت‌های داوطلبانه‌ مختلفی هم برای جامعه نرم‌افزار در ایران داشته و دارم که تلاش می‌کنم به تدریج ازشون بنویسم.</p>
-    <p>توی شبکه‌های اجتماعی تنها در توییتر فعال هستم، گرچه مدتی فعال <a href="/next">نبودم</a> ولی برگشتم و از دلایلش خواهم گفت: <a href="https://twitter.com/hamed">https://twitter.com/hamed</a></p>
+    <p>توی شبکه‌های اجتماعی تنها در <a href="https://twitter.com/hamed">توییتر</a> فعال هستم، گرچه مدتی فعال <a href="/next">نبودم</a> ولی برگشتم و از دلایلش خواهم گفت.</p>
+    <div class="archive-section">
+      <a href="/writing" class="archive-link">
+        همه نوشته‌ها ←
+      </a>
+      <p class="archive-desc muted small">
+        {toPersianDigits(allPosts.length)} نوشته از سال {firstYear} تا {lastYear}
+      </p>
+    </div>
   </article>
 </BaseLayout>
