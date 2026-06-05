@@ -108,7 +108,7 @@ body {
   color: var(--color-tx);
   margin: 2vw auto 0;
   line-height: var(--line-height);
-  padding: 2rem 2rem 24rem;
+  padding: 2rem;
   font-size: calc(1.5rem + 0.25vw);
   max-width: var(--wrap-wide);
 }
