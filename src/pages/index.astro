@@ -1,21 +1,34 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
-import { toPersianDate, toPersianYearMonth } from "../utils/date";
+import { toPersianDate, toPersianDigits } from "../utils/date";
+import { toJalaali } from "jalaali-js";
 
 const allPosts = await getCollection("posts", ({ data }) => !data.draft);
 allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
 const latest = allPosts[0];
+const recentPosts = allPosts.slice(1, 6);
+
+const firstDate = allPosts[allPosts.length - 1].data.date;
+const lastDate = allPosts[0].data.date;
+const firstYear = toPersianDigits(toJalaali(firstDate.getFullYear(), firstDate.getMonth() + 1, firstDate.getDate()).jy);
+const lastYear = toPersianDigits(toJalaali(lastDate.getFullYear(), lastDate.getMonth() + 1, lastDate.getDate()).jy);
+
 const topics = [...new Set(allPosts.flatMap((p) => p.data.tags ?? []))].sort();
+const topicCounts = new Map<string, number>();
+for (const post of allPosts) {
+  for (const tag of post.data.tags ?? []) {
+    topicCounts.set(tag, (topicCounts.get(tag) ?? 0) + 1);
+  }
+}
 ---
 
 <BaseLayout title="حامد">
-  <p><a href={"/" + latest.id} class="muted">جدیدترین</a></p>
-
-  <div>
+  <section class="featured-post">
+    <p class="section-label muted">جدیدترین</p>
     <a href={"/" + latest.id} class="plain">
-      <h2>{latest.data.title}</h2>
+      <h2 class="featured-title">{latest.data.title}</h2>
       <div class="metadata muted small">
         <time datetime={latest.data.date.toISOString()}>
           {toPersianDate(latest.data.date)}
@@ -23,45 +36,58 @@ const topics = [...new Set(allPosts.flatMap((p) => p.data.tags ?? []))].sort();
       </div>
       {
         latest.data.description && (
-          <div class="small muted">{latest.data.description} ادامه مطلب ←</div>
+          <p class="small muted featured-desc">
+            {latest.data.description}
+            <span class="read-more"> ادامه مطلب ←</span>
+          </p>
         )
       }
     </a>
-  </div>
+  </section>
 
-  <hr />
-
-  <p><a href="/topics" class="muted">موضوعات</a></p>
-
-  <div class="topics-list">
-    {
-      topics.map((t, i) => (
-        <>
-          <a href={"/topics/" + t}>{t}</a>
-          {i < topics.length - 1 && <span class="muted">, </span>}
-        </>
-      ))
-    }
-  </div>
-
-  <hr />
-
-  <p class="muted"><a href="/writing" class="muted">نوشته‌ها</a></p>
-
-  <ul class="list-plain tabular-nums writing-list">
-    {
-      allPosts.map((post) => {
-        return (
-          <li>
+  <section class="recent-posts">
+    <p class="section-label muted">نوشته‌های اخیر</p>
+    <div class="recent-list">
+      {
+        recentPosts.map((post) => (
+          <article class="recent-item">
             <a href={"/" + post.id} class="plain">
-              <span class="align-baseline flex">
-                <span class="muted flex-shrink small nowrap">{toPersianYearMonth(post.data.date)}</span>
-                &nbsp;<u>{post.data.title}</u>
+              <span class="recent-title">{post.data.title}</span>
+              <span class="recent-date muted small">
+                {toPersianDate(post.data.date)}
               </span>
+              {
+                post.data.description && (
+                  <p class="recent-desc small muted">{post.data.description}</p>
+                )
+              }
             </a>
-          </li>
-        );
-      })
-    }
-  </ul>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="topics-section">
+    <p class="section-label muted"><a href="/topics" class="muted">موضوعات</a></p>
+    <div class="topics-list">
+      {
+        topics.map((t) => (
+          <a href={"/topics/" + t} class="topic-badge">
+            {t}
+            <span class="topic-count">{toPersianDigits(topicCounts.get(t) ?? 0)}</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <div class="archive-section">
+    <a href="/writing" class="archive-link">
+      همه نوشته‌ها ←
+    </a>
+    <p class="archive-desc muted small">
+      {toPersianDigits(allPosts.length)} نوشته از سال {firstYear} تا {lastYear}
+    </p>
+  </div>
 </BaseLayout>
