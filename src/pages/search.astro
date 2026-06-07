@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="جستجو" description="جستجو در نوشته‌ها">
+  <h1>جستجو</h1>
+
+  <form class="search-page-form" role="search" id="search-page-form">
+    <input
+      type="search"
+      id="search-page-input"
+      class="search-page-input"
+      name="q"
+      placeholder="چیزی تایپ کن…"
+      autofocus
+    >
+  </form>
+
+  <div id="search-results"></div>
+
+  <script src="/scripts/search-page.js" defer></script>
+</BaseLayout>

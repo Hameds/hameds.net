@@ -56,7 +56,7 @@ const { title, description, section, socialTitle, socialDescription, socialImage
       }
     </script>
 
-    <nav>
+    <nav data-pagefind-ignore>
       <span class="site-name">
         <a href="/" class="plain">حامد</a>
         {section && <><span class="faint"> / </span><a href={section.url} class="muted plain">{section.label}</a></>}
@@ -64,6 +64,13 @@ const { title, description, section, socialTitle, socialDescription, socialImage
       <span class="nav-links">
         <a href="/about">درباره</a>
         <!-- <a href="/now" class="mh">اکنون</a> -->
+      </span>
+      <span class="search-wrapper">
+        <input type="search" id="search-input" class="search-input" placeholder="جستجو" aria-label="جستجو">
+        <span class="search-hint" aria-hidden="true">/</span>
+        <button id="search-toggle" class="search-toggle" type="button" aria-label="باز کردن جستجو">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
       </span>
       <button
         id="theme-toggle"
@@ -85,12 +92,22 @@ const { title, description, section, socialTitle, socialDescription, socialImage
       </button>
     </nav>
 
-    <main>
+    <div id="search-overlay" class="search-overlay" role="dialog" aria-modal="true" aria-label="جستجو">
+      <div class="search-overlay-content">
+        <div class="search-overlay-header">
+          <span class="search-overlay-title">جستجو</span>
+          <button class="search-close" aria-label="بستن">✕</button>
+        </div>
+        <input type="search" id="search-input-overlay" class="search-input-overlay" placeholder="عنوان یا کلمه کلیدی" aria-label="جستجو" autocomplete="off">
+      </div>
+    </div>
+
+    <main data-pagefind-body>
       <slot />
       <hr />
     </main>
 
-    <footer>
+    <footer data-pagefind-ignore>
       <p><a href="/subscribe" class="muted">دنبال کردن</a></p>
       <p class="flex">
         <span>
@@ -104,6 +121,11 @@ const { title, description, section, socialTitle, socialDescription, socialImage
 
     <script>
       const toggle = document.querySelector("#theme-toggle");
+      const searchInput = document.querySelector("#search-input");
+      const overlayInput = document.querySelector("#search-input-overlay");
+      const searchToggle = document.querySelector("#search-toggle");
+      const searchOverlay = document.querySelector("#search-overlay");
+      const searchClose = document.querySelector(".search-close");
 
       function toggleTheme() {
         document.body.classList.toggle("theme-dark");
@@ -123,6 +145,62 @@ const { title, description, section, socialTitle, socialDescription, socialImage
 
       toggle.addEventListener("click", toggleTheme);
 
+      function getActiveInput() {
+        const isMobile = window.innerWidth <= 600;
+        return isMobile ? overlayInput : searchInput;
+      }
+
+      function openSearch() {
+        const input = getActiveInput();
+        document.body.classList.add("search-open");
+        input.focus();
+      }
+
+      function closeSearch() {
+        document.body.classList.remove("search-open");
+      }
+
+      function handleSearchEnter(input) {
+        if (input && input.value.trim()) {
+          closeSearch();
+          window.location.href = "/search?q=" + encodeURIComponent(input.value.trim());
+        }
+      }
+
+      if (searchInput) {
+        searchInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") handleSearchEnter(searchInput);
+          if (e.key === "Escape") closeSearch();
+        });
+      }
+
+      if (overlayInput) {
+        overlayInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") handleSearchEnter(overlayInput);
+          if (e.key === "Escape") closeSearch();
+        });
+      }
+
+      if (searchToggle) {
+        searchToggle.addEventListener("click", () => {
+          if (document.body.classList.contains("search-open")) {
+            closeSearch();
+          } else {
+            openSearch();
+          }
+        });
+      }
+
+      if (searchClose) {
+        searchClose.addEventListener("click", closeSearch);
+      }
+
+      if (searchOverlay) {
+        searchOverlay.addEventListener("click", (e) => {
+          if (e.target === searchOverlay) closeSearch();
+        });
+      }
+
       window.addEventListener("keydown", (e) => {
         if (
           document.activeElement?.tagName === "INPUT" ||
@@ -131,6 +209,14 @@ const { title, description, section, socialTitle, socialDescription, socialImage
           return;
         if ((e.key === "d" || e.key === "D") && !e.ctrlKey && !e.metaKey) {
           toggleTheme();
+        }
+        if (e.key === "/" && !e.ctrlKey && !e.metaKey) {
+          e.preventDefault();
+          openSearch();
+        }
+        if ((e.key === "s" || e.key === "S") && !e.ctrlKey && !e.metaKey) {
+          e.preventDefault();
+          openSearch();
         }
       });
 
