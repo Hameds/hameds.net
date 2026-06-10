@@ -8,3 +8,19 @@ dist/
 .idea/
 *.local
 package-lock.json
+
+# opencode
+.opencode/
+opencode.json
+opencode.jsonc
+
+# openwork
+.openwork/
+openwork.json
+openwork.jsonc
+
+# openspec
+openspec/
+.openspec/
+openspec.json
+openspec.jsonc
