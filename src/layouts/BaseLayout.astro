@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { version } from "../../package.json";
 
 export interface Props {
   title: string;
@@ -108,14 +109,26 @@ const { title, description, section, socialTitle, socialDescription, socialImage
     </main>
 
     <footer>
-      <p><a href="/subscribe" class="muted">دنبال کردن</a></p>
+      <p class="muted">دنبال کردن</p>
       <p class="flex">
         <span>
           از طریق <a target="_blank" href="/feed.xml">RSS</a>،
           <a href="https://twitter.com/hamed" target="_blank" rel="noopener noreferrer">توییتر</a>
           و <a href="https://github.com/hameds" target="_blank" rel="noopener noreferrer">گیت‌هاب</a>
         </span>
-        <span class="muted small license">استفاده از محتوا با لینک به نسخه اصلی مجاز است</span>
+        <span class="muted small license">
+          استفاده از محتوا با لینک به نسخه اصلی مجاز است
+          {import.meta.env.PUBLIC_COMMIT_SHA && (
+            <a
+              href={`https://github.com/hameds/hameds.net/commit/${import.meta.env.PUBLIC_COMMIT_SHA}`}
+              class="version"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {version}
+            </a>
+          )}
+        </span>
       </p>
     </footer>
 

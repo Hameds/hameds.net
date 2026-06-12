@@ -829,6 +829,22 @@ footer .license {
   font-size: 0.75em;
 }
 
+footer .version {
+  font-size: 0.625em;
+  color: var(--color-tx-muted);
+  border: 1px solid var(--color-tx-faint);
+  border-radius: 9999px;
+  padding: 0.15em 0.5em;
+  text-decoration: none;
+  line-height: 1;
+  white-space: nowrap;
+  transition: border-color 0.2s;
+}
+
+footer .version:hover {
+  border-color: var(--color-tx-muted);
+}
+
 /* External link icon (top-left arrow for RTL) */
 article a[href^="https://"]::after,
 article a[href^="http://"]::after {

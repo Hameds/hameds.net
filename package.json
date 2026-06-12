@@ -1,11 +1,11 @@
 {
   "name": "hameds.net",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "PUBLIC_COMMIT_SHA=$(git rev-parse --short HEAD) astro dev",
+    "build": "PUBLIC_COMMIT_SHA=$(git rev-parse --short HEAD) astro build",
     "preview": "astro preview"
   },
   "dependencies": {
