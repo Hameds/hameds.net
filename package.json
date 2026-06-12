@@ -11,6 +11,7 @@
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
     "astro": "^6.4.4",
+    "fuse.js": "^7.4.2",
     "jalaali-js": "^1.2.8"
   },
   "packageManager": "pnpm@10.33.4+sha512.1c67b3b359b2d408119ba1ed289f34b8fc3c6873412bec6fd264fbdc82489e510fcbecb9ce9d22dae7f3b76269d8441046014bdca53b9979cd7a561ad631b800",
@@ -19,9 +20,5 @@
       "esbuild",
       "sharp"
     ]
-  },
-  "devDependencies": {
-    "astro-pagefind": "^2.0.0",
-    "pagefind": "^1.5.2"
   }
 }

@@ -56,7 +56,7 @@ const { title, description, section, socialTitle, socialDescription, socialImage
       }
     </script>
 
-    <nav data-pagefind-ignore>
+    <nav>
       <span class="site-name">
         <a href="/" class="plain">حامد</a>
         {section && <><span class="faint"> / </span><a href={section.url} class="muted plain">{section.label}</a></>}
@@ -102,12 +102,12 @@ const { title, description, section, socialTitle, socialDescription, socialImage
       </div>
     </div>
 
-    <main data-pagefind-body>
+    <main>
       <slot />
       <hr />
     </main>
 
-    <footer data-pagefind-ignore>
+    <footer>
       <p><a href="/subscribe" class="muted">دنبال کردن</a></p>
       <p class="flex">
         <span>

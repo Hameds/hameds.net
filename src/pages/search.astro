@@ -16,7 +16,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     >
   </form>
 
+  <div id="search-results-count" class="search-results-count"></div>
   <div id="search-results"></div>
 
-  <script src="/scripts/search-page.js" defer></script>
+  <script>
+    import "../scripts/search.ts";
+  </script>
 </BaseLayout>
